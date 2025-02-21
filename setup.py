@@ -75,7 +75,10 @@ ext_modules = [
             "-Wall",
             "-O3",
             "-DEIGEN_NO_DEBUG",
+            "-std=c++11",
+            "-stdlib=libc++",
         ],
+        extra_link_args=["-stdlib=libc++"],
     ),
     Extension(
         "pyroomacoustics.build_rir",
