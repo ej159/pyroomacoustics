@@ -1525,6 +1525,17 @@ class Room(object):
         # Update the real room object
         self._init_room_engine()
 
+    def plot_walls(self, ax):
+        """Plot the walls"""
+        import matplotlib.colors as colors
+        import mpl_toolkits.mplot3d as a3
+
+        for w in self.walls:
+            tri = a3.art3d.Poly3DCollection([w.corners.T], alpha=0.5)
+            tri.set_color(colors.rgb2hex(np.random.rand(3)))
+            tri.set_edgecolor("k")
+            ax.add_collection3d(tri)
+
     def plot(
         self,
         img_order=None,
@@ -1708,7 +1719,6 @@ class Room(object):
             return fig, ax
 
         if self.dim == 3:
-            import matplotlib.colors as colors
             import matplotlib.pyplot as plt
             import mpl_toolkits.mplot3d as a3
 
@@ -1717,12 +1727,7 @@ class Room(object):
                 ax = a3.Axes3D(fig, auto_add_to_figure=False)
                 fig.add_axes(ax)
 
-            # plot the walls
-            for w in self.walls:
-                tri = a3.art3d.Poly3DCollection([w.corners.T], alpha=0.5)
-                tri.set_color(colors.rgb2hex(np.random.rand(3)))
-                tri.set_edgecolor("k")
-                ax.add_collection3d(tri)
+            self.plot_walls(ax)
 
             # define some markers for different sources and colormap for damping
             markers = ["o", "s", "v", "."]
