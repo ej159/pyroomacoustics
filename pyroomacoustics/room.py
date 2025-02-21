@@ -1529,12 +1529,12 @@ class Room(object):
         """Plot the walls"""
         import matplotlib.colors as colors
         import mpl_toolkits.mplot3d as a3
-
-        for w in self.walls:
-            tri = a3.art3d.Poly3DCollection([w.corners.T], alpha=0.5)
-            tri.set_color(colors.rgb2hex(np.random.rand(3)))
-            tri.set_edgecolor("k")
-            ax.add_collection3d(tri)
+        if len(self.walls) !=0: # If there are no walls, don't plot walls
+            for w in self.walls:
+                tri = a3.art3d.Poly3DCollection([w.corners.T], alpha=0.5)
+                tri.set_color(colors.rgb2hex(np.random.rand(3)))
+                tri.set_edgecolor("k")
+                ax.add_collection3d(tri)
 
     def plot(
         self,
